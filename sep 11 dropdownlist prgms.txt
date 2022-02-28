@@ -1,0 +1,162 @@
+Script to handle suggetions(AJAX) displayed in redbus.in
+---------------------------------------------------------------------------
+		System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("https://redbus.in");
+		
+		driver.findElement(By.id("src")).sendKeys("Hyd");
+		
+		Thread.sleep(2000);
+		
+		List<WebElement> fromcitylist = driver.findElement(By.xpath("//div[2]/section/div/div[1]/div/ul")).findElements(By.tagName("li"));
+		System.out.println(fromcitylist.size());
+		
+		for(int i=0;i<fromcitylist.size();i++)
+		{
+			String fromcityname =  fromcitylist.get(i).getText();
+			System.out.println(fromcityname);
+		}
+		
+--------------------------------------------------------------------------------
+Script to select a value from Cars dropdownlist
+--------------------------------------------------------------------------------
+		System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("file:///C:/Test/cars.html");
+		
+		WebElement car_element = driver.findElement(By.id("cars"));
+		Select cars = new Select(car_element);
+		
+		cars.selectByIndex(1);
+		Thread.sleep(2000);
+		
+		cars.selectByVisibleText("BMW");
+		Thread.sleep(2000);
+		
+		cars.selectByValue("a");
+----------------------------------------------------------------------------------
+Script to count no. of items present in DropDownList
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("file:///C:/Test/cars.html");
+		
+		WebElement car_element = driver.findElement(By.id("cars"));
+		Select cars = new Select(car_element);
+		
+		List<WebElement> carlist = cars.getOptions();
+		System.out.println(carlist.size()-1);
+-------------------------------------------------------------------------------
+Script to Read all items present in a dropdownlist
+--------------------------------------------------------------------------------
+		System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("file:///C:/Test/cars.html");
+		
+		WebElement car_element = driver.findElement(By.id("cars"));
+		Select cars = new Select(car_element);
+		
+		List<WebElement> carlist = cars.getOptions();
+		System.out.println("Count of items: "+(carlist.size()-1));
+		
+		for(int i=1;i<carlist.size();i++)
+		{
+			System.out.println(carlist.get(i).getText());
+		}
+------------------------------------------------------------------------------
+Script to check the specified item present in the DropDownList or not?
+------------------------------------------------------------------------------
+System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("file:///C:/Test/cars.html");
+		
+		WebElement car_element = driver.findElement(By.id("cars"));
+		Select cars = new Select(car_element);
+		
+		String car_tobe_checked = "Maruti";
+		
+		List<WebElement> carlist = cars.getOptions();
+
+		boolean iscarpresent = false;
+		
+		for(int i=1;i<carlist.size();i++)
+		{
+			if(carlist.get(i).getText().equalsIgnoreCase(car_tobe_checked))
+			{
+				iscarpresent=true;
+				break;
+			}
+		}
+		
+		if(iscarpresent)
+		{
+			System.out.println(car_tobe_checked+" is present in the list, test pass");
+		}else
+		{
+			System.out.println(car_tobe_checked+" is not present in the list, test fail");
+		}
+		
+		driver.close();
+-----------------------------------------------------------------------------------------------------
+Select values from DropDownlist in Facebook App
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("https://facebook.com");
+		
+		driver.findElement(By.linkText("Create New Account")).click();	
+		
+		Select day = new Select(driver.findElement(By.id("day")));
+		day.selectByIndex(1);
+		
+		Select month = new Select(driver.findElement(By.id("month")));		
+		month.selectByValue("5");
+		
+		WebElement yelement = driver.findElement(By.id("year"));
+		Select year = new Select(yelement);
+		year.selectByVisibleText("2000");
+--------------------------------------------------------------------------------
+Script to Read all month names displayed in Facebook App Dropdwonlist
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+		WebDriver driver = new FirefoxDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("https://facebook.com");
+		
+		driver.findElement(By.linkText("Create New Account")).click();	
+		
+		
+		Select month = new Select(driver.findElement(By.id("month")));		
+		List<WebElement> monthlist = month.getOptions();
+		
+		
+		for(int i=0;i<monthlist.size();i++)
+		{
+			String mname =  monthlist.get(i).getText();
+			if(!mname.equalsIgnoreCase("month"))
+			{
+				System.out.println(mname);
+			}
+			
+		}
+---------------------------------------------------------------------------------

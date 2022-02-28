@@ -1,0 +1,193 @@
+CitiList HTML
+------------------------------------------------------------------------------
+<select id=city>
+<option>Ahmadabad</option>
+<option>Banglore</option>
+<option>Chennai</option>
+<option>Delhi</option>
+</select>
+-------------------------------------------------------------------------------
+Script to check items listed in a dropdown list are displayed in ascending order or not?
+------------------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("file:///C:/Test/cities.html");
+		
+		Select city = new Select(driver.findElement(By.id("city")));
+		List<WebElement> citylist = city.getOptions();
+		
+		String city1,city2;		
+		boolean ordered =true;
+		
+		for(int i =1;i<citylist.size();i++)
+		{
+			city1 = citylist.get(i-1).getText();
+			city2 = citylist.get(i).getText();
+			if(city2.compareToIgnoreCase(city1)<0)
+			{
+				ordered= false;
+				break;
+			}
+		}
+		if(ordered)
+		{
+			System.out.println("Cities are listed in ascending order, test pass");
+		}else
+		{
+			System.out.println("Cities are not listed in ascending order, test fail");
+		}
+		driver.close();
+--------------------------------------------------------------------------------
+Script to check link working or not based on URL of the Page
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://google.com");
+		
+		driver.findElement(By.linkText("Gmail")).click();
+		
+		String expurl,acturl;
+		expurl= "gmail";
+		
+		acturl = driver.getCurrentUrl().toLowerCase();
+		
+		if(acturl.contains(expurl))
+		{
+			System.out.println("GMail Link working as expected, test pass");
+		}else
+		{
+			System.out.println("GMail Link not working as expected, test fail");
+		}
+		driver.close();
+---------------------------------------------------------------------------------
+Script to check Link workig or not based on the Title of the Page
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://google.com");
+		
+		driver.findElement(By.linkText("Images")).click();
+		
+		String exptitle,acttitle;
+		exptitle= "images";
+		
+		acttitle = driver.getTitle().toLowerCase();
+		
+		if(acttitle.contains(exptitle))
+		{
+			System.out.println("Images Link working as expected, test pass");
+		}else
+		{
+			System.out.println("Images Link working as expected, test fail");
+		}
+		
+		
+		driver.close();
+------------------------------------------------------------------------------
+Script to check a link working or not based on the display of an element
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://facebook.com");
+		
+		driver.findElement(By.partialLinkText("password")).click();
+		if(driver.findElement(By.linkText("Forgotten account?")).isDisplayed())
+		{
+			System.out.println("Forgotten Password link working, test pass");
+		}else
+		{
+			System.out.println("Forgotten Password link not working, test fail");
+		}
+		driver.close();
+--------------------------------------------------------------------------------
+Script to capture all links present in a page
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://facebook.com");
+		
+		//driver.findElements(By.xpath("//a"));
+		
+		List<WebElement> links = driver.findElements(By.tagName("a"));
+		System.out.println(links.size());
+		for(int i=0;i<links.size();i++)
+		{
+			String linkname = links.get(i).getText();
+			System.out.println(linkname);
+		}
+---------------------------------------------------------------------------------
+Script to verify the specified link present in a page or not?
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://facebook.com");
+		
+			
+		List<WebElement> links = driver.findElements(By.tagName("a"));
+
+		boolean islinkpresent = false;
+		
+		String link_tobe_checked = "messenger";
+		for(int i=0;i<links.size();i++)
+		{
+			String linkname = links.get(i).getText();
+			if(linkname.equalsIgnoreCase(link_tobe_checked))
+			{
+				islinkpresent = true;
+				break;
+			}			
+		}
+		if(islinkpresent)
+		{
+			System.out.println(link_tobe_checked+" is present in the list, test pass");
+		}else
+		{
+			System.out.println(link_tobe_checked+" is not present in the list, test fail");
+		}
+		
+		driver.close();
+----------------------------------------------------------------------------------
+Alternative method to check link resent in the page or not?
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://facebook.com");
+		
+		String link_tobe_checked = "QEdge";
+		
+		try 
+		{
+			driver.findElement(By.linkText(link_tobe_checked));
+			System.out.println(link_tobe_checked+" link is present in the page, test pass");
+		} catch (Exception e) 
+		{
+			System.out.println(link_tobe_checked+" link is not present in the page, test fail");
+		}
+		
+		
+		driver.close();
+--------------------------------------------------------------------------------
+
+
+

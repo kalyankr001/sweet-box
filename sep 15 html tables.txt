@@ -1,0 +1,98 @@
+Script to Count No. of Rows present in a HTML Table
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://money.rediff.com/tools/forex");
+		
+		WebElement curtable =  driver.findElement(By.className("dataTable"));
+		List<WebElement> rows = curtable.findElements(By.tagName("tr"));
+		System.out.println("Count of Rows: "+(rows.size()-1));
+-------------------------------------------------------------------------------
+Another Script to Count No. of Rows in HTML Table
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://www.railyatri.in/time-table");
+		
+		List<WebElement> rows = driver.findElement(By.xpath("//div[2]/div/div/div/div/div/table")).findElements(By.tagName("tr"));
+		
+		System.out.println(rows.size()-1);
+------------------------------------------------------------------------------
+Script to Count No. of columns of a Table Row
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://www.railyatri.in/time-table");
+		
+		List<WebElement> rows = driver.findElement(By.xpath("//div[2]/div/div/div/div/div/table")).findElements(By.tagName("tr"));
+		
+		List<WebElement> cols = rows.get(1).findElements(By.tagName("td"));
+		System.out.println(cols.size());
+--------------------------------------------------------------------------------
+Script to Read data present in a specific Row 
+---------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://money.rediff.com/tools/forex");
+		
+		WebElement curtable =  driver.findElement(By.className("dataTable"));
+		List<WebElement> rows = curtable.findElements(By.tagName("tr"));
+		List<WebElement> cols = rows.get(1).findElements(By.tagName("td"));
+		
+		String curname =  cols.get(0).getText();
+		String currate = cols.get(1).getText();
+		
+		System.out.println(curname+"  "+currate);
+		driver.close();
+-----------------------------------------------------------------------------------
+Script to Read data present in all rows of the Table
+---------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://money.rediff.com/tools/forex");
+		
+		WebElement curtable =  driver.findElement(By.className("dataTable"));
+		List<WebElement> rows = curtable.findElements(By.tagName("tr"));
+		
+		for(int i=1;i<rows.size();i++)
+		{
+			List<WebElement> cols = rows.get(i).findElements(By.tagName("td"));
+			String curname =  cols.get(0).getText();
+			String currate = cols.get(1).getText();
+			System.out.println(curname+"  "+currate);
+		}
+		
+		
+		driver.close();	
+-------------------------------------------------------------------------------
+Script to Read complete data present in IRCTC Trains Table
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://www.railyatri.in/time-table");
+		
+		List<WebElement> rows = driver.findElement(By.xpath("//div[2]/div/div/div/div/div/table")).findElements(By.tagName("tr"));
+		for(int i =1 ;i<rows.size();i++)
+		{
+			List<WebElement> cols = rows.get(i).findElements(By.tagName("td"));
+			for(int j=0;j<cols.size();j++)
+			{
+				String data = cols.get(j).getText();
+				System.out.print(data+"   ");
+			}
+			
+			System.out.println();
+		}
+------------------------------------------------------------------------------

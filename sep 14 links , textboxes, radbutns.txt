@@ -1,0 +1,126 @@
+Script to capture all links present in a page and their URLs
+-----------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://primusbank.qedgetech.com");
+		
+		driver.findElement(By.linkText("Site Map")).click();
+		List<WebElement> links = driver.findElements(By.tagName("a"));
+		
+		for(int i=0;i<links.size();i++)
+		{
+			
+			String linkname = links.get(i).getText();
+			String linkurl = links.get(i).getAttribute("href");
+			System.out.println(linkname+"   "+linkurl);			
+		}
+----------------------------------------------------------------------------------
+Alternative Script to capture all links present in a page and their URLs		
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://primusbank.qedgetech.com");
+		
+		driver.findElement(By.linkText("Site Map")).click();
+		List<WebElement> links = driver.findElements(By.tagName("a"));
+		
+		for(int i=0;i<links.size();i++)
+		{
+			String linkname = links.get(i).getText();
+			links.get(i).click();
+			String linkurl = driver.getCurrentUrl();
+			System.out.println(linkname+"    "+linkurl);
+			driver.navigate().back();
+			links = driver.findElements(By.tagName("a"));
+						
+		}		
+---------------------------------------------------------------------------------
+Script to check / uncheck Checkbox element
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://flights.qedgetech.com/");
+		
+		driver.findElement(By.linkText("Register")).click();
+		
+		WebElement chkbox = driver.findElement(By.className("form-check-input"));
+		chkbox.click();
+		Thread.sleep(2000);
+		chkbox.click();
+
+----------------------------------------------------------------------------------
+isSelected() 
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://flights.qedgetech.com/");
+		
+		driver.findElement(By.linkText("Register")).click();
+		
+		WebElement chkbox = driver.findElement(By.className("form-check-input"));
+		
+		System.out.println(chkbox.isSelected());
+		chkbox.click();
+		System.out.println(chkbox.isSelected());
+----------------------------------------------------------------------------------
+Script to select Checkbox element based on its selected status
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://flights.qedgetech.com/");
+		
+		driver.findElement(By.linkText("Register")).click();
+		
+		WebElement chkbox = driver.findElement(By.className("form-check-input"));
+		
+		if(!chkbox.isSelected())
+		{
+			chkbox.click();
+		}
+------------------------------------------------------------------------------
+Script to count No. of Radio Buttons present in a page
+------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://facebook.com/");
+		
+		driver.findElement(By.linkText("Create New Account")).click();
+		
+		List<WebElement> radiolist = driver.findElements(By.xpath("//input[@type='radio']"));
+		System.out.println(radiolist.size()); 
+---------------------------------------------------------------------------------
+Script to select radio button elements and check its selected status
+-------------------------------------------------------------------------------
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.get("http://facebook.com/");
+		
+		driver.findElement(By.linkText("Create New Account")).click();
+	
+		WebElement radio = driver.findElement(By.xpath("//input[@name='sex' and @value='2']"));
+		
+		System.out.println(radio.isSelected());
+		radio.click();
+		System.out.println(radio.isSelected());
+---------------------------------------------------------------------------------
